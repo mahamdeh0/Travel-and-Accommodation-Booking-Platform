@@ -16,6 +16,8 @@ namespace TravelAndAccommodationBookingPlatform.Infrastructure.Configurations
 
             builder.Property(b => b.PaymentType).HasConversion(new EnumToStringConverter<PaymentType>());
 
+            builder.Property(b => b.GuestRemarks).HasMaxLength(500);
+
             builder.HasMany(b => b.Rooms).WithMany(r => r.Bookings);
 
             builder.HasMany(b => b.Invoice).WithOne(ir => ir.Booking)
