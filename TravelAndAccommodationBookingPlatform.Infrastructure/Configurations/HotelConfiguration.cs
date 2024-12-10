@@ -12,9 +12,9 @@ namespace TravelAndAccommodationBookingPlatform.Infrastructure.Configurations
         {
             builder.HasKey(h => h.Id);
 
-            builder.Ignore(h => h.FullView);
+            builder.Ignore(h => h.Gallery);
 
-            builder.Ignore(h => h.SmallPreview);
+            builder.Ignore(h => h.Thumbnail);
 
             builder.Property(h => h.Status).HasConversion(new EnumToStringConverter<HotelStatus>());
 

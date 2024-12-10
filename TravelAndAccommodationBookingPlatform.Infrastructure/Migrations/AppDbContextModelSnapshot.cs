@@ -34,7 +34,7 @@ namespace TravelAndAccommodationBookingPlatform.Infrastructure.Migrations
 
                     b.HasIndex("RoomsId");
 
-                    b.ToTable("BookingRoom");
+                    b.ToTable("BookingRoom", (string)null);
                 });
 
             modelBuilder.Entity("TravelAndAccommodationBookingPlatform.Core.Entities.Booking", b =>
@@ -75,7 +75,7 @@ namespace TravelAndAccommodationBookingPlatform.Infrastructure.Migrations
 
                     b.HasIndex("HotelId");
 
-                    b.ToTable("Bookings");
+                    b.ToTable("Bookings", (string)null);
                 });
 
             modelBuilder.Entity("TravelAndAccommodationBookingPlatform.Core.Entities.City", b =>
@@ -108,7 +108,7 @@ namespace TravelAndAccommodationBookingPlatform.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Cities");
+                    b.ToTable("Cities", (string)null);
                 });
 
             modelBuilder.Entity("TravelAndAccommodationBookingPlatform.Core.Entities.Discount", b =>
@@ -140,7 +140,7 @@ namespace TravelAndAccommodationBookingPlatform.Infrastructure.Migrations
 
                     b.HasIndex("RoomClassId");
 
-                    b.ToTable("Discounts");
+                    b.ToTable("Discounts", (string)null);
                 });
 
             modelBuilder.Entity("TravelAndAccommodationBookingPlatform.Core.Entities.Hotel", b =>
@@ -199,7 +199,7 @@ namespace TravelAndAccommodationBookingPlatform.Infrastructure.Migrations
 
                     b.HasIndex("OwnerId");
 
-                    b.ToTable("Hotels");
+                    b.ToTable("Hotels", (string)null);
                 });
 
             modelBuilder.Entity("TravelAndAccommodationBookingPlatform.Core.Entities.Image", b =>
@@ -223,7 +223,7 @@ namespace TravelAndAccommodationBookingPlatform.Infrastructure.Migrations
 
                     b.HasIndex("EntityId");
 
-                    b.ToTable("Images");
+                    b.ToTable("Images", (string)null);
                 });
 
             modelBuilder.Entity("TravelAndAccommodationBookingPlatform.Core.Entities.InvoiceDetail", b =>
@@ -276,7 +276,7 @@ namespace TravelAndAccommodationBookingPlatform.Infrastructure.Migrations
 
                     b.HasIndex("RoomId");
 
-                    b.ToTable("InvoiceDetail");
+                    b.ToTable("InvoiceDetail", (string)null);
                 });
 
             modelBuilder.Entity("TravelAndAccommodationBookingPlatform.Core.Entities.Owner", b =>
@@ -303,7 +303,7 @@ namespace TravelAndAccommodationBookingPlatform.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Owners");
+                    b.ToTable("Owners", (string)null);
                 });
 
             modelBuilder.Entity("TravelAndAccommodationBookingPlatform.Core.Entities.Review", b =>
@@ -337,7 +337,7 @@ namespace TravelAndAccommodationBookingPlatform.Infrastructure.Migrations
 
                     b.HasIndex("HotelId");
 
-                    b.ToTable("Reviews");
+                    b.ToTable("Reviews", (string)null);
                 });
 
             modelBuilder.Entity("TravelAndAccommodationBookingPlatform.Core.Entities.Role", b =>
@@ -356,7 +356,7 @@ namespace TravelAndAccommodationBookingPlatform.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Roles");
+                    b.ToTable("Roles", (string)null);
                 });
 
             modelBuilder.Entity("TravelAndAccommodationBookingPlatform.Core.Entities.Room", b =>
@@ -382,7 +382,7 @@ namespace TravelAndAccommodationBookingPlatform.Infrastructure.Migrations
 
                     b.HasIndex("RoomClassId");
 
-                    b.ToTable("Rooms");
+                    b.ToTable("Rooms", (string)null);
                 });
 
             modelBuilder.Entity("TravelAndAccommodationBookingPlatform.Core.Entities.RoomClass", b =>
@@ -429,7 +429,7 @@ namespace TravelAndAccommodationBookingPlatform.Infrastructure.Migrations
 
                     b.HasIndex("TypeOfRoom");
 
-                    b.ToTable("RoomClasses");
+                    b.ToTable("RoomClasses", (string)null);
                 });
 
             modelBuilder.Entity("TravelAndAccommodationBookingPlatform.Core.Entities.User", b =>
@@ -466,7 +466,7 @@ namespace TravelAndAccommodationBookingPlatform.Infrastructure.Migrations
                     b.HasIndex("Email")
                         .IsUnique();
 
-                    b.ToTable("Users");
+                    b.ToTable("Users", (string)null);
                 });
 
             modelBuilder.Entity("UserRole", b =>
@@ -481,7 +481,7 @@ namespace TravelAndAccommodationBookingPlatform.Infrastructure.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("UserRole");
+                    b.ToTable("UserRole", (string)null);
                 });
 
             modelBuilder.Entity("BookingRoom", b =>

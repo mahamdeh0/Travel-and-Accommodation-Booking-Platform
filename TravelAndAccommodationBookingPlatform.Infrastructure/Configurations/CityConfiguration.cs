@@ -10,7 +10,7 @@ namespace TravelAndAccommodationBookingPlatform.Infrastructure.Configurations
         {
             builder.HasKey(c => c.Id);
 
-            builder.Ignore(c => c.SmallPreview);
+            builder.Ignore(c => c.Thumbnail);
 
             builder.HasMany(h => h.Hotels).WithOne(c => c.City).IsRequired()
                    .OnDelete(DeleteBehavior.Restrict);

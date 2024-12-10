@@ -15,7 +15,7 @@ namespace TravelAndAccommodationBookingPlatform.Core.Entities
         public DateTime CreatedAt { get; set; }
         public DateTime? UpdatedAt { get; set; }
         public ICollection<Room> Rooms { get; set; } = new List<Room>();
-        public ICollection<Image> FullView { get; set; } = new List<Image>();
+        public ICollection<Image> Gallery { get; set; } = new List<Image>();
         public ICollection<Discount> Discounts { get; set; } = new List<Discount>();
     }
 }

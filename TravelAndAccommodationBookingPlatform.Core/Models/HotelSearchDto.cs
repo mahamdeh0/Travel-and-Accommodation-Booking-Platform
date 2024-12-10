@@ -5,7 +5,7 @@ namespace TravelAndAccommodationBookingPlatform.Core.Models
     public class HotelSearchDto
     {
         public Guid Id { get; set; }
-        public ImageType? SmallPreview { get; set; }
+        public ImageType? Thumbnail { get; set; }
         public string Name { get; set; }
         public int StarRating { get; set; }
         public HotelStatus Status { get; set; }

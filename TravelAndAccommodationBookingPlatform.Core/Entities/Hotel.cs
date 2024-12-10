@@ -19,8 +19,8 @@ namespace TravelAndAccommodationBookingPlatform.Core.Entities
         public string PhoneNumber { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime? UpdatedAt { get; set; }
-        public Image? SmallPreview { get; set; }
-        public ICollection<Image> FullView { get; set; } = new List<Image>();
+        public Image? Thumbnail { get; set; }
+        public ICollection<Image> Gallery { get; set; } = new List<Image>();
         public ICollection<RoomClass> RoomClasses { get; set; } = new List<RoomClass>();
         public ICollection<Booking> Bookings { get; set; } = new List<Booking>();
         public ICollection<Review> Reviews { get; set; } = new List<Review>();

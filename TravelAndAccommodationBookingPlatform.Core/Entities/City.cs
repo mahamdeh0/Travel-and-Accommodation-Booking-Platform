@@ -3,7 +3,7 @@ namespace TravelAndAccommodationBookingPlatform.Core.Entities
 {
     public class City : EntityBase, IAuditableEntity
     {
-        public Image? SmallPreview { get; set; }
+        public Image? Thumbnail { get; set; }
         public string Name { get; set; }
         public string Country { get; set; }
         public string PostOffice { get; set; }

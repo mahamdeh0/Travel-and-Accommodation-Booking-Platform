@@ -16,7 +16,7 @@ namespace TravelAndAccommodationBookingPlatform.Infrastructure.Configurations
 
             builder.Property(rc => rc.NightlyRate).HasPrecision(18, 2);
 
-            builder.Ignore(h => h.FullView);
+            builder.Ignore(h => h.Gallery);
 
             builder.HasIndex(rc => rc.TypeOfRoom);
 
