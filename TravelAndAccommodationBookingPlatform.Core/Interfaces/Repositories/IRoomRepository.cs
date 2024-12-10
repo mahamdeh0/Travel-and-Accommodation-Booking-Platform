@@ -13,6 +13,6 @@ namespace TravelAndAccommodationBookingPlatform.Core.Interfaces.Repositories
         Task<PaginatedResult<Room>> GetRoomsAsync(PaginatedQuery<Room> query);
         Task<Room?> GetRoomByIdAsync(Guid roomClassId, Guid id);
         Task<Room?> GetRoomWithRoomClassByIdAsync(Guid roomId);
-        Task<PaginatedResult<HotelManagementDto>> GetRoomsForManagementAsync(PaginatedQuery<Room> query);
+        Task<PaginatedResult<RoomManagementDto>> GetRoomsForManagementAsync(PaginatedQuery<Room> query);
     }
 }
