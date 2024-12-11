@@ -10,6 +10,7 @@ namespace TravelAndAccommodationBookingPlatform.Application.Profiles
     {
         public OwnerProfile()
         {
+            CreateMap<UpdateOwnerCommand, Owner>();
             CreateMap<Owner, OwnerResponseDto>();
             CreateMap<CreateOwnerCommand, Owner>();
             CreateMap(typeof(PaginatedResult<>), typeof(PaginatedResult<>));
