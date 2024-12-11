@@ -29,7 +29,6 @@
     <Folder Include="Handlers\DiscountHandlers\QueryHandlers\" />
     <Folder Include="Handlers\HotelHandlers\CommandHandlers\" />
     <Folder Include="Handlers\HotelHandlers\QueryHandlers\" />
-    <Folder Include="Handlers\OwnerHandlers\QueryHandlers\" />
     <Folder Include="Handlers\ReviewHandlers\CommandHandlers\" />
     <Folder Include="Handlers\ReviewHandlers\QueryHandlers\" />
     <Folder Include="Handlers\RoomClassHandlers\CommandHandlers\" />
@@ -42,7 +41,6 @@
     <Folder Include="Queries\CityQueries\" />
     <Folder Include="Queries\DiscountQueries\" />
     <Folder Include="Queries\HotelQueries\" />
-    <Folder Include="Queries\OwnerQueries\" />
     <Folder Include="Queries\UserQueries\" />
     <Folder Include="Queries\RoomClassQueries\" />
     <Folder Include="Queries\RoomQueries\" />
