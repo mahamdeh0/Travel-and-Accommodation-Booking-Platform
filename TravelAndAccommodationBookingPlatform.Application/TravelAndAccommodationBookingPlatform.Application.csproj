@@ -6,25 +6,19 @@
 
   <ItemGroup>
     <Folder Include="Commands\BookingCommands\" />
-    <Folder Include="Commands\CityCommands\" />
     <Folder Include="Commands\DiscountCommands\" />
     <Folder Include="Commands\HotelCommands\" />
     <Folder Include="Commands\RoomClassCommands\" />
-    <Folder Include="Commands\UserCommands\" />
     <Folder Include="Commands\RoomCommands\" />
     <Folder Include="Commands\ReviewCommands\" />
     <Folder Include="DTOs\BookingDtos\" />
-    <Folder Include="DTOs\CityDtos\" />
     <Folder Include="DTOs\DiscountDtos\" />
     <Folder Include="DTOs\HotelDtos\" />
-    <Folder Include="DTOs\UserDtos\" />
     <Folder Include="DTOs\RoomClassDtos\" />
     <Folder Include="DTOs\RoomDtos\" />
     <Folder Include="DTOs\ReviewsDtos\" />
     <Folder Include="Handlers\BookingHandlers\CommandHandlers\" />
     <Folder Include="Handlers\BookingHandlers\QueryHandlers\" />
-    <Folder Include="Handlers\CityHandlers\CommandHandlers\" />
-    <Folder Include="Handlers\CityHandlers\QueryHandlers\" />
     <Folder Include="Handlers\DiscountHandlers\CommandHandlers\" />
     <Folder Include="Handlers\DiscountHandlers\QueryHandlers\" />
     <Folder Include="Handlers\HotelHandlers\CommandHandlers\" />
@@ -35,10 +29,7 @@
     <Folder Include="Handlers\RoomClassHandlers\QueryHandlers\" />
     <Folder Include="Handlers\RoomHandlers\CommandHandlers\" />
     <Folder Include="Handlers\RoomHandlers\QueryHandlers\" />
-    <Folder Include="Handlers\UserHandlers\CommandHandlers\" />
-    <Folder Include="Handlers\UserHandlers\QueryHandlers\" />
     <Folder Include="Queries\BookingQueries\" />
-    <Folder Include="Queries\CityQueries\" />
     <Folder Include="Queries\DiscountQueries\" />
     <Folder Include="Queries\HotelQueries\" />
     <Folder Include="Queries\UserQueries\" />
