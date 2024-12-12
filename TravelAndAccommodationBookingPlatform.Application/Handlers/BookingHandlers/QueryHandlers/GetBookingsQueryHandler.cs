@@ -35,7 +35,7 @@ namespace TravelAndAccommodationBookingPlatform.Application.Handlers.BookingHand
             var role = _userSession.GetUserRole();
 
             if (role != "Guest")
-                throw new UnauthorizedException(UserMessages.UserNotGuest);
+                throw new ForbiddenException(UserMessages.UserNotGuest);
 
             var filterExpression = (Expression<Func<Booking, bool>>)(b => b.GuestId == userId);
             var paginatedQuery = new PaginatedQuery<Booking>(
