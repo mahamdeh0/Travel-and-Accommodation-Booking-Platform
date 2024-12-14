@@ -7,5 +7,6 @@
         public const string DiscountNotFoundInRoomClass = "No discount with the specified ID exists within the given room class.";
         public const string DiscountExpired = "The specified discount is no longer valid as it has expired.";
         public const string ConflictingDiscountInterval = "A discount already exists within the specified date interval.";
+        public const string InvalidDateRange = "StartDate must be before EndDate.";
     }
 }
