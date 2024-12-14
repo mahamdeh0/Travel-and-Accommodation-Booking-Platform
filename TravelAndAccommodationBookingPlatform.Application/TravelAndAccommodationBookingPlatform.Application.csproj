@@ -12,7 +12,6 @@
     <Folder Include="DTOs\DiscountDtos\" />
     <Folder Include="DTOs\HotelDtos\" />
     <Folder Include="DTOs\RoomClassDtos\" />
-    <Folder Include="DTOs\RoomDtos\" />
     <Folder Include="DTOs\ReviewsDtos\" />
     <Folder Include="Handlers\DiscountHandlers\CommandHandlers\" />
     <Folder Include="Handlers\DiscountHandlers\QueryHandlers\" />
@@ -22,12 +21,10 @@
     <Folder Include="Handlers\ReviewHandlers\QueryHandlers\" />
     <Folder Include="Handlers\RoomClassHandlers\CommandHandlers\" />
     <Folder Include="Handlers\RoomClassHandlers\QueryHandlers\" />
-    <Folder Include="Handlers\RoomHandlers\QueryHandlers\" />
     <Folder Include="Queries\DiscountQueries\" />
     <Folder Include="Queries\HotelQueries\" />
     <Folder Include="Queries\UserQueries\" />
     <Folder Include="Queries\RoomClassQueries\" />
-    <Folder Include="Queries\RoomQueries\" />
     <Folder Include="Queries\ReviewQueries\" />
   </ItemGroup>
 
