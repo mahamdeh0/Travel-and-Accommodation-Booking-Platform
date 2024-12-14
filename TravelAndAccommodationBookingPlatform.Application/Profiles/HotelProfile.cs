@@ -9,6 +9,7 @@ namespace TravelAndAccommodationBookingPlatform.Application.Profiles
         public HotelProfile()
         {
             CreateMap<CreateHotelCommand, Hotel>();
+            CreateMap<UpdateHotelCommand, Hotel>();
         }
     }
 }
