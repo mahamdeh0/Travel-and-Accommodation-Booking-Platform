@@ -13,8 +13,11 @@ namespace TravelAndAccommodationBookingPlatform.Application.Profiles
             CreateMap<CreateCityCommand, City>();
             CreateMap<City, CityResponseDto>();
             CreateMap<UpdateCityCommand, City>();
-            CreateMap<PaginatedResult<CityManagementDto>, PaginatedResult<CityManagementResponseDto>>();
+            CreateMap<PaginatedResult<CityManagementDto>, PaginatedResult<CityManagementResponseDto>>().
+                ForMember(dst => dst.Items, options => options.MapFrom(src => src.Items)); ;
             CreateMap<CityManagementDto, CityManagementResponseDto>();
+            CreateMap<City, TrendingCityResponseDto>()
+              .ForMember(dst => dst.Thumbnail, options => options.MapFrom(src => src.Thumbnail != null ? src.Thumbnail.Path : null));
         }
     }
 }
