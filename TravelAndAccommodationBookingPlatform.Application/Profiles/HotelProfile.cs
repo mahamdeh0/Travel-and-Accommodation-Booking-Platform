@@ -18,6 +18,11 @@ namespace TravelAndAccommodationBookingPlatform.Application.Profiles
                 .ForMember(dest => dest.CityName, opt => opt.MapFrom(src => src.City.Name))
                 .ForMember(dest => dest.Thumbnail, opt => opt.MapFrom(src => src.Thumbnail != null ? src.Thumbnail.Path : null))
                 .ForMember(dest => dest.Gallery, opt => opt.MapFrom(src => src.Gallery.Select(image => image.Path)));
+            CreateMap<HotelSearchDto, HotelSearchResultResponseDto>()
+                .ForMember(dest => dest.BriefDescription, opt => opt.MapFrom(src => src.Description))
+                .ForMember(dest => dest.Thumbnail, opt => opt.MapFrom(src => src.Thumbnail != null ? src.Thumbnail.ToString() : null));
+            CreateMap<PaginatedResult<HotelSearchDto>, PaginatedResult<HotelSearchResultResponseDto>>().ForMember(dst => dst.Items, options => options.MapFrom(src => src.Items));
+            CreateMap<PaginatedResult<HotelManagementDto>, PaginatedResult<HotelManagementResponseDto>>().ForMember(dst => dst.Items, options => options.MapFrom(src => src.Items));
         }
     }
 }
