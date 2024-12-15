@@ -1,7 +1,11 @@
 ﻿using AutoMapper;
 using MediatR;
+using System.Linq.Expressions;
 using TravelAndAccommodationBookingPlatform.Application.DTOs.RoomDtos;
 using TravelAndAccommodationBookingPlatform.Application.Queries.RoomQueries;
+using TravelAndAccommodationBookingPlatform.Core.DomainMessages;
+using TravelAndAccommodationBookingPlatform.Core.Entities;
+using TravelAndAccommodationBookingPlatform.Core.Exceptions;
 using TravelAndAccommodationBookingPlatform.Core.Interfaces.Repositories;
 using TravelAndAccommodationBookingPlatform.Core.Models;
 
@@ -20,9 +24,26 @@ namespace TravelAndAccommodationBookingPlatform.Application.Handlers.RoomHandler
             _mapper = mapper;
         }
 
-        public Task<PaginatedResult<RoomGuestResponseDto>> Handle(GuestRoomsByClassIdQuery request, CancellationToken cancellationToken)
+        public async Task<PaginatedResult<RoomGuestResponseDto>> Handle(GuestRoomsByClassIdQuery request, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            var roomClassExists = await _roomClassRepository.ExistsAsync(rc => rc.Id == request.RoomClassId);
+            if (!roomClassExists)
+                throw new NotFoundException(RoomClassMessages.RoomClassNotFound);
+
+            Expression<Func<Room, bool>> filterExpression = room => room.RoomClassId == request.RoomClassId && 
+                                                                   !room.Bookings.Any(booking =>
+                                                                   booking.CheckInDate < request.CheckOutDate &&
+                                                                   booking.CheckOutDate > request.CheckInDate);
+
+            var query = new PaginatedQuery<Room>(
+                filterExpression,
+                null, 
+                request.PageNumber,
+                request.PageSize
+            );
+
+            var rooms = await _roomRepository.GetRoomsAsync(query);
+            return _mapper.Map<PaginatedResult<RoomGuestResponseDto>>(rooms);
         }
     }
 }
