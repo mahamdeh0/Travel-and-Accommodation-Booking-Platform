@@ -21,4 +21,9 @@
     <ProjectReference Include="..\TravelAndAccommodationBookingPlatform.Infrastructure\TravelAndAccommodationBookingPlatform.Infrastructure.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="DTOs\Authentication\" />
+    <Folder Include="Validators\Authentication\" />
+  </ItemGroup>
+
 </Project>

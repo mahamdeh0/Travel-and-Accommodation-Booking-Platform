@@ -8,8 +8,8 @@ namespace TravelAndAccommodationBookingPlatform.Application.Commands.UserCommand
         public string LastName { get; init; }
         public string Password { get; init; }
         public string Email { get; init; }
-        public DateTime DateOfBirth { get; set; }
-        public string PhoneNumber { get; set; }
+        public DateTime DateOfBirth { get; init; }
+        public string PhoneNumber { get; init; }
         public string Role { get; init; }
     }
 }
