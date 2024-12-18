@@ -75,7 +75,7 @@ namespace TravelAndAccommodationBookingPlatform.WebAPI.Controllers
         public async Task<IActionResult> CreateCity([FromBody] CityCreationRequestDto cityCreationRequestDto)
         {
             var command = _mapper.Map<CreateCityCommand>(cityCreationRequestDto);
-            var createdCity = await _mediator.Send(command);
+            await _mediator.Send(command);
             return Created();
         }
 
