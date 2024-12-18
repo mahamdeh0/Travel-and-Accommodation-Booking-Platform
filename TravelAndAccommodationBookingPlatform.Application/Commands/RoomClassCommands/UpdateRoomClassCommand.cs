@@ -4,7 +4,7 @@ namespace TravelAndAccommodationBookingPlatform.Application.Commands.RoomClassCo
 {
     public class UpdateRoomClassCommand : IRequest
     {
-        public Guid HotelId { get; init; }
+        public Guid RoomClassId { get; init; }
         public string Name { get; init; }
         public int MaxChildrenCapacity { get; init; }
         public int MaxAdultsCapacity { get; init; }
