@@ -65,7 +65,6 @@ namespace TravelAndAccommodationBookingPlatform.WebAPI.Controllers
         /// Creates a new city.
         /// </summary>
         /// <param name="cityCreationRequest">The request data to create a city.</param>
-        /// <returns>Returns the location of the created city.</returns>
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -77,7 +76,7 @@ namespace TravelAndAccommodationBookingPlatform.WebAPI.Controllers
         {
             var command = _mapper.Map<CreateCityCommand>(cityCreationRequestDto);
             var createdCity = await _mediator.Send(command);
-            return CreatedAtAction(nameof(GetCitiesManagement), new { id = createdCity.Id }, createdCity);
+            return Created();
         }
 
         /// <summary>
