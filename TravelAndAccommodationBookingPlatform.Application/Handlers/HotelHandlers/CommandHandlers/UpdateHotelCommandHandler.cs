@@ -36,7 +36,7 @@ namespace TravelAndAccommodationBookingPlatform.Application.Handlers.HotelHandle
                 throw new NotFoundException(OwnerMessages.OwnerNotFound);
 
             if (await _hotelRepository.ExistsByPredicateAsync(h => h.Geolocation == request.Geolocation))
-                throw new ConflictException(HotelMessages.HotelWithSameLocationExists);
+                throw new DuplicateHotelLocationException(HotelMessages.HotelWithSameLocationExists);
 
             if (!await _cityRepository.ExistsAsync(c => c.Id == request.CityId))
                 throw new NotFoundException(CityMessages.CityNotFound);
