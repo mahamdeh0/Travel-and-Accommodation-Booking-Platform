@@ -28,7 +28,7 @@ namespace TravelAndAccommodationBookingPlatform.Infrastructure.Persistence.Repos
 
         public async Task<User?> AuthenticateUserAsync(string email, string password)
         {
-            var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == email);
+            var user = await _context.Users.Include(u => u.Roles).FirstOrDefaultAsync(u => u.Email == email);
 
             if (user is null) return null;
 
