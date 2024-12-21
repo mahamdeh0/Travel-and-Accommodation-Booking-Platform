@@ -1,36 +1,32 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.RateLimiting;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Options;
 
 namespace TravelAndAccommodationBookingPlatform.Infrastructure.RateLimiting
 {
     public static class RateLimiterConfiguration
     {
-        public static IServiceCollection AddCustomRateLimiter(this IServiceCollection services)
+        public static IServiceCollection AddCustomRateLimiter(this IServiceCollection services, IConfiguration configuration)
         {
-            services.Configure<YourNamespace.RateLimiting.RateLimiterOptions>(options =>
-            {
-                options.MaxRequests = 100;
-                options.WindowDurationInSeconds = 60;
-            });
+            var rateLimiterOptions = configuration.GetSection(nameof(RateLimiterOptions)).Get<RateLimiterOptions>();
+
+            services.Configure<RateLimiterOptions>(configuration.GetSection(nameof(RateLimiterOptions)));
 
             services.AddRateLimiter(options =>
             {
-                var provider = services.BuildServiceProvider();
-                var rateLimiterSettings = provider.GetRequiredService<IOptions<YourNamespace.RateLimiting.RateLimiterOptions>>().Value;
-
                 options.RejectionStatusCode = StatusCodes.Status429TooManyRequests;
 
                 options.AddFixedWindowLimiter("FixedWindowPolicy", config =>
                 {
-                    config.PermitLimit = rateLimiterSettings.MaxRequests;
-                    config.Window = TimeSpan.FromSeconds(rateLimiterSettings.WindowDurationInSeconds);
+                    config.PermitLimit = rateLimiterOptions.MaxRequests;
+                    config.Window = TimeSpan.FromSeconds(rateLimiterOptions.WindowDurationInSeconds);
                 });
             });
 
             return services;
         }
+
     }
 }
