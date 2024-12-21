@@ -1,4 +1,5 @@
 ﻿using Microsoft.OpenApi.Models;
+using System.Reflection;
 
 namespace TravelAndAccommodationBookingPlatform.WebAPI.Extensions
 {
@@ -9,6 +10,9 @@ namespace TravelAndAccommodationBookingPlatform.WebAPI.Extensions
             services.AddSwaggerGen(setup =>
             {
                 setup.SwaggerDoc("v1", new OpenApiInfo { Title = "TravelAndAccommodationBookingPlatform", Version = "v1" });
+                var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+                setup.IncludeXmlComments(xmlPath);
 
                 setup.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
                 {
