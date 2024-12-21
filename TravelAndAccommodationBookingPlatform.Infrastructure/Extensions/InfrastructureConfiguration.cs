@@ -24,7 +24,7 @@ namespace TravelAndAccommodationBookingPlatform.Infrastructure.Extensions
                     .AddCustomRateLimiter(config)
                     .AddRepositories()
                     .AddPasswordHashing()
-                    .AddServices();
+                    .AddServices(config);
 
             return services;
         }
@@ -63,8 +63,15 @@ namespace TravelAndAccommodationBookingPlatform.Infrastructure.Extensions
             return services;
         }
 
-        public static IServiceCollection AddServices(this IServiceCollection services)
+        public static IServiceCollection AddServices(this IServiceCollection services, IConfiguration configuration)
         {
+            var firebaseConfig = new FirebaseConfig
+            {
+                GoogleCredential = configuration["Firebase:GoogleCredential"],
+                Bucket = configuration["Firebase:Bucket"]
+            };
+            services.AddSingleton(firebaseConfig);
+
             services.AddScoped<IPdfGeneratorService, PdfGeneratorService>();
             services.AddScoped<IUnitOfWork, UnitOfWork.UnitOfWork>();
             services.AddScoped<IImageService, ImageService>();
@@ -74,5 +81,6 @@ namespace TravelAndAccommodationBookingPlatform.Infrastructure.Extensions
 
             return services;
         }
+
     }
 }
