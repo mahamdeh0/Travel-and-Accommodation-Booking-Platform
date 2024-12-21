@@ -84,11 +84,13 @@ namespace TravelAndAccommodationBookingPlatform.WebAPI.Controllers
         /// <response code="400">If the request data is invalid.</response>
         /// <response code="401">If the user is not authenticated.</response>
         /// <response code="403">If the user is not authorized to access this resource.</response>
+        /// <response code="409">If a user with the same email already exists.</response>
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        [ProducesResponseType(StatusCodes.Status409Conflict)]
         public async Task<IActionResult> CreateOwner([FromBody] OwnerCreationRequestDto ownerCreationRequestDto)
         {
             var command = _mapper.Map<CreateOwnerCommand>(ownerCreationRequestDto);
