@@ -49,7 +49,7 @@ namespace TravelAndAccommodationBookingPlatform.Infrastructure.Persistence.Repos
 
         public async Task<PaginatedResult<Booking>> GetBookingsAsync(PaginatedQuery<Booking> query)
         {
-            var queryable = _context.Bookings.AsQueryable();
+            var queryable = _context.Bookings.Include(b => b.Hotel).AsQueryable();
 
             if (query.FilterExpression != null)
                 queryable = queryable.Where(query.FilterExpression);
