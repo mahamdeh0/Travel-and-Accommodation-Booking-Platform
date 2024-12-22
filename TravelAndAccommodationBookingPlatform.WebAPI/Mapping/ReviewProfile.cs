@@ -11,10 +11,11 @@ namespace TravelAndAccommodationBookingPlatform.WebAPI.Mapping
         public ReviewProfile()
         {
             CreateMap<ReviewUpdateRequestDto, UpdateReviewCommand>();
+            CreateMap<ReviewCreationRequestDto, CreateReviewCommand>();
             CreateMap<GetReviewsRequestDto, GetReviewsByHotelIdQuery>()
                 .ForMember(
                     dst => dst.OrderDirection,
-                    opt => opt.MapFrom(src => MappingHelpers.MapOrderDirection(src.OrderDirection))); CreateMap<ReviewCreationRequestDto, CreateReviewCommand>();
+                    opt => opt.MapFrom(src => MappingHelpers.MapOrderDirection(src.OrderDirection))); 
         }
     }
 }

@@ -52,7 +52,7 @@ namespace TravelAndAccommodationBookingPlatform.Infrastructure.Repositories
 
         public async Task<Review?> GetReviewByIdAsync(Guid hotelId, Guid reviewId)
         {
-            return await _context.Reviews.FirstOrDefaultAsync(r => r.HotelId == hotelId && r.Id == reviewId);
+            return await _context.Reviews.Include(r => r.Guest).FirstOrDefaultAsync(r => r.HotelId == hotelId && r.Id == reviewId);
         }
 
         public async Task<Review?> GetReviewByIdAsync(Guid reviewId, Guid hotelId, Guid guestId)
