@@ -8,7 +8,7 @@ namespace TravelAndAccommodationBookingPlatform.Core.Interfaces.Repositories
     {
         Task<Discount> AddDiscountAsync(Discount discount);
         Task<PaginatedResult<Discount>> GetDiscountsAsync(PaginatedQuery<Discount> query);
-        Task<Discount?> GetDiscountByIdAsync(Guid id);
+        Task<Discount?> GetDiscountByIdAsync(Guid id, Guid roomClassId);
         Task RemoveDiscountAsync(Guid id);
         Task<bool> ExistsAsync(Expression<Func<Discount, bool>> predicate);
     }

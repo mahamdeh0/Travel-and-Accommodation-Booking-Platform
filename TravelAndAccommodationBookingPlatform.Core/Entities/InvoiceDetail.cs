@@ -1,6 +1,6 @@
 ﻿namespace TravelAndAccommodationBookingPlatform.Core.Entities
 {
-    public class InvoiceDetail
+    public class InvoiceDetail : EntityBase
     {
         public Guid RoomId { get; set; }
         public Guid BookingId { get; set; }

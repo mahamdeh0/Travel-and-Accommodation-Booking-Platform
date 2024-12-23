@@ -3,21 +3,18 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TravelAndAccommodationBookingPlatform.Core", "TravelAndAccommodationBookingPlatform.Core\TravelAndAccommodationBookingPlatform.Core.csproj", "{1B36C366-16D4-4406-B716-6B37935D7861}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TravelAndAccommodationBookingPlatform.Core", "TravelAndAccommodationBookingPlatform.Core\TravelAndAccommodationBookingPlatform.Core.csproj", "{1B36C366-16D4-4406-B716-6B37935D7861}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TravelAndAccommodationBookingPlatform.Application", "TravelAndAccommodationBookingPlatform.Application\TravelAndAccommodationBookingPlatform.Application.csproj", "{9C5579AD-360E-417D-BEBD-F4050F920EAC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TravelAndAccommodationBookingPlatform.Application", "TravelAndAccommodationBookingPlatform.Application\TravelAndAccommodationBookingPlatform.Application.csproj", "{9C5579AD-360E-417D-BEBD-F4050F920EAC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TravelAndAccommodationBookingPlatform.Infrastructure", "TravelAndAccommodationBookingPlatform.Infrastructure\TravelAndAccommodationBookingPlatform.Infrastructure.csproj", "{23C05BD9-F5C5-4CF3-8C8E-F2AAF0698E5E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TravelAndAccommodationBookingPlatform.Infrastructure", "TravelAndAccommodationBookingPlatform.Infrastructure\TravelAndAccommodationBookingPlatform.Infrastructure.csproj", "{23C05BD9-F5C5-4CF3-8C8E-F2AAF0698E5E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TravelAndAccommodationBookingPlatform.WebAPI", "TravelAndAccommodationBookingPlatform.WebAPI\TravelAndAccommodationBookingPlatform.WebAPI.csproj", "{C4E4701D-0A42-4204-A21B-256068E517AF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TravelAndAccommodationBookingPlatform.WebAPI", "TravelAndAccommodationBookingPlatform.WebAPI\TravelAndAccommodationBookingPlatform.WebAPI.csproj", "{C4E4701D-0A42-4204-A21B-256068E517AF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
-	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{1B36C366-16D4-4406-B716-6B37935D7861}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -36,5 +33,11 @@ Global
 		{C4E4701D-0A42-4204-A21B-256068E517AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C4E4701D-0A42-4204-A21B-256068E517AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C4E4701D-0A42-4204-A21B-256068E517AF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {8BB6424D-7B82-49E6-8184-07A7641E4AAE}
 	EndGlobalSection
 EndGlobal

@@ -2,9 +2,7 @@
 {
     public enum ImageType
     {
-        SmallPreview = 0,   
-        FullView = 1,       
-        Logo = 2,          
-        PromoImage = 3
+        Thumbnail = 0,
+        Gallery = 1
     }
 }
