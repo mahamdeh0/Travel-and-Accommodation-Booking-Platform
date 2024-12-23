@@ -15,6 +15,9 @@ namespace TravelAndAccommodationBookingPlatform.WebAPI.Validators.RoomClasses
                 .NotNull().WithMessage("Max children capacity is required.")
                 .GreaterThanOrEqualTo(0).WithMessage("Max children capacity must be at least 0.");
 
+            RuleFor(x => x.TypeOfRoom)
+                .IsInEnum().WithMessage("Invalid room type.");
+
             RuleFor(x => x.MaxAdultsCapacity)
                 .NotNull().WithMessage("Max adults capacity is required.")
                 .GreaterThan(0).WithMessage("Max adults capacity must be greater than 0.");

@@ -13,10 +13,15 @@ namespace TravelAndAccommodationBookingPlatform.Application.Profiles
         {
             CreateMap<CreateRoomClassCommand, RoomClass>();
             CreateMap<UpdateRoomClassCommand, RoomClass>();
-            CreateMap<RoomClass, RoomClassManagementResponseDto>().ForMember(dst => dst.ActiveDiscount, options => options.MapFrom(src => src.Discounts.FirstOrDefault()));
+            CreateMap<RoomClass, RoomClassManagementResponseDto>()
+                .ForMember(dst => dst.ActiveDiscount, options => options.MapFrom(src => src.Discounts.FirstOrDefault()))
+                .ForMember(dst => dst.RoomClassId, opt => opt.MapFrom(src => src.Id));
+
             CreateMap<RoomClass, RoomClassGuestResponseDto>()
                  .ForMember(dst => dst.ActiveDiscount, options => options.MapFrom(src => src.Discounts.FirstOrDefault()))
-                 .ForMember(dst => dst.Gallery, options => options.MapFrom(src => src.Gallery.Select(i => i.Path)));
+                 .ForMember(dst => dst.Gallery, options => options.MapFrom(src => src.Gallery.Select(i => i.Path)))
+                 .ForMember(dst => dst.RoomClassId, opt => opt.MapFrom(src => src.Id));
+            
             CreateMap<PaginatedResult<RoomClass>, PaginatedResult<RoomClassGuestResponseDto>>()
                 .ForMember(dst => dst.Items, options => options.MapFrom(src => src.Items));
             CreateMap<PaginatedResult<RoomClass>, PaginatedResult<RoomClassManagementResponseDto>>()
