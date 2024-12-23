@@ -1,7 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System.Diagnostics.Metrics;
 using System.Linq.Expressions;
 using TravelAndAccommodationBookingPlatform.Core.DomainMessages;
 using TravelAndAccommodationBookingPlatform.Core.Entities;
+using TravelAndAccommodationBookingPlatform.Core.Enums;
 using TravelAndAccommodationBookingPlatform.Core.Exceptions;
 using TravelAndAccommodationBookingPlatform.Core.Interfaces.Repositories;
 using TravelAndAccommodationBookingPlatform.Core.Models;
@@ -92,27 +94,38 @@ namespace TravelAndAccommodationBookingPlatform.Infrastructure.Repositories
         {
             ArgumentOutOfRangeException.ThrowIfNegativeOrZero(count);
 
-            var mostVisitedCities = await _context.Bookings
-                .GroupBy(b => b.Hotel.CityId)
-                .Select(g => new
-                {
-                    CityId = g.Key,
-                    VisitCount = g.Count()
-                })
-                .OrderByDescending(g => g.VisitCount)
+            var mostVisitedCitiesQuery =
+                from booking in _context.Bookings
+                group booking by booking.Hotel.CityId into grouped
+                orderby grouped.Count() descending
+                select new { CityId = grouped.Key, VisitCount = grouped.Count() };
+
+            var mostVisitedCitiesWithThumbnails = await mostVisitedCitiesQuery
                 .Take(count)
                 .Join(
-                    _context.Cities
-                        .Include(c => c.Hotels)
-                        .Include(c => c.Thumbnail)
-                        .AsNoTracking(),
+                    _context.Cities.AsNoTracking(),
                     g => g.CityId,
                     c => c.Id,
-                    (g, c) => c
+                    (g, c) => new { City = c, g.VisitCount }
+                )
+                .GroupJoin(
+                    _context.Images.AsNoTracking().Where(img => img.Type == ImageType.Thumbnail),
+                    cityWithVisit => cityWithVisit.City.Id,
+                    img => img.EntityId,
+                    (cityWithVisit, images) => new
+                    {
+                        City = cityWithVisit.City,
+                        VisitCount = cityWithVisit.VisitCount,
+                        Thumbnail = images.FirstOrDefault()
+                    }
                 )
                 .ToListAsync();
 
-            return mostVisitedCities;
+            return mostVisitedCitiesWithThumbnails.Select(c =>
+                {
+                    c.City.Thumbnail = c.Thumbnail;
+                    return c.City;
+                });
         }
     }
 }

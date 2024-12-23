@@ -1,7 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
+using System.Threading;
 using TravelAndAccommodationBookingPlatform.Core.DomainMessages;
 using TravelAndAccommodationBookingPlatform.Core.Entities;
+using TravelAndAccommodationBookingPlatform.Core.Enums;
 using TravelAndAccommodationBookingPlatform.Core.Exceptions;
 using TravelAndAccommodationBookingPlatform.Core.Interfaces.Repositories;
 using TravelAndAccommodationBookingPlatform.Core.Models;
@@ -48,20 +50,19 @@ namespace TravelAndAccommodationBookingPlatform.Infrastructure.Repositories
             _context.Hotels.Update(hotel);
         }
 
-        public async Task UpdateHotelRatingAsync(Guid id, double newRating)
-        {
-            var hotel = await _context.Hotels.FindAsync(id);
-            if (hotel == null) return;
-
-            hotel.ReviewsRating = newRating;
-            _context.Hotels.Update(hotel);
-        }
-
         public async Task<Hotel?> GetHotelByIdAsync(Guid id)
         {
-            return await _context.Hotels
+            var hotel = await _context.Hotels
                 .Include(h => h.City)
                 .FirstOrDefaultAsync(h => h.Id == id);
+
+            if (hotel == null)
+                return null;
+
+            hotel.Thumbnail = _context.Images.FirstOrDefault(i => i.Type == ImageType.Thumbnail);
+            hotel.Gallery = _context.Images.Where(i => i.Type == ImageType.Gallery).ToList();
+
+            return hotel;
         }
 
         public async Task<PaginatedResult<HotelManagementDto>> GetHotelsForManagementPageAsync(PaginatedQuery<Hotel> query)

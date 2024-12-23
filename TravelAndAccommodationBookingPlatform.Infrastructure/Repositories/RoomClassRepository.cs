@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 using TravelAndAccommodationBookingPlatform.Core.Entities;
+using TravelAndAccommodationBookingPlatform.Core.Enums;
 using TravelAndAccommodationBookingPlatform.Core.Interfaces.Repositories;
 using TravelAndAccommodationBookingPlatform.Core.Models;
 using TravelAndAccommodationBookingPlatform.Infrastructure.Data;
@@ -19,15 +20,18 @@ namespace TravelAndAccommodationBookingPlatform.Infrastructure.Repositories
 
         public async Task<PaginatedResult<RoomClass>> GetRoomClassesAsync(PaginatedQuery<RoomClass> query)
         {
-            ArgumentNullException.ThrowIfNull(query);
+            if (query == null) throw new ArgumentNullException(nameof(query));
 
             var currentDateTime = DateTime.UtcNow;
 
             var roomClassesQuery = _context.RoomClasses
-                .Include(rc => rc.Discounts
-                    .Where(d => currentDateTime >= d.StartDate && currentDateTime < d.EndDate))
-                .Include(rc => rc.Gallery)
-                .AsQueryable();
+                .Include(rc => rc.Discounts.Where(d => currentDateTime >= d.StartDate && currentDateTime < d.EndDate))
+                .AsNoTracking()
+                .Select(rc => new
+                {
+                    RoomClass = rc,
+                    Gallery = _context.Images.Where(img => img.EntityId == rc.Id).ToList()
+                });
 
             if (!string.IsNullOrEmpty(query.SortByColumn))
                 roomClassesQuery = roomClassesQuery.Sort(query.SortByColumn, query.SortDirection);
@@ -38,9 +42,11 @@ namespace TravelAndAccommodationBookingPlatform.Infrastructure.Repositories
                 .GetPage(query.PageNumber, query.PageSize)
                 .ToListAsync();
 
-            return new PaginatedResult<RoomClass>(paginatedRoomClasses, paginationMetadata);
-        }
+            foreach (var item in paginatedRoomClasses)
+                item.RoomClass.Gallery = item.Gallery;
 
+            return new PaginatedResult<RoomClass>(paginatedRoomClasses.Select(x => x.RoomClass), paginationMetadata);
+        }
 
         public async Task<RoomClass?> GetRoomClassByIdAsync(Guid id)
         {
@@ -83,40 +89,41 @@ namespace TravelAndAccommodationBookingPlatform.Infrastructure.Repositories
         {
             var currentDateTime = DateTime.UtcNow;
 
-            var roomsWithActiveDiscounts = await _context.RoomClasses
-                .Include(rc => rc.Hotel)
-                    .ThenInclude(h => h.City)
-                .Include(rc => rc.Gallery)
-                .Include(rc => rc.Discounts)
-                .Where(rc => rc.Discounts.Any(d => d.StartDate <= currentDateTime && d.EndDate > currentDateTime))
-                .ToListAsync();
-
-            var roomWithBestDiscountPerHotel = roomsWithActiveDiscounts
+            var featuredDeals = await _context.RoomClasses
+                .AsNoTracking()
+                .Where(rc => rc.Discounts.Any(d =>
+                    d.StartDate <= currentDateTime &&
+                    d.EndDate > currentDateTime))
                 .Select(rc => new
                 {
                     RoomClass = rc,
                     ActiveDiscount = rc.Discounts
                         .Where(d => d.StartDate <= currentDateTime && d.EndDate > currentDateTime)
                         .OrderByDescending(d => d.Percentage)
-                        .ThenBy(d => rc.NightlyRate)
+                        .FirstOrDefault(),
+                    Hotel = rc.Hotel,
+                    Thumbnail = _context.Images
+                        .Where(img => img.EntityId == rc.HotelId && img.Type == ImageType.Thumbnail)
                         .FirstOrDefault()
                 })
-                .GroupBy(x => x.RoomClass.HotelId)
+                .GroupBy(rcd => rcd.Hotel.Id)
                 .Select(g => g
-                    .OrderByDescending(x => x.ActiveDiscount.Percentage)
-                    .ThenBy(x => x.RoomClass.NightlyRate)
-                    .First())
-                .OrderByDescending(x => x.ActiveDiscount.Percentage)
-                .ThenBy(x => x.RoomClass.NightlyRate)
+                    .OrderByDescending(rcd => rcd.ActiveDiscount.Percentage)
+                    .ThenBy(rcd => rcd.RoomClass.NightlyRate)
+                    .FirstOrDefault())
                 .Take(count)
-                .ToList();
+                .ToListAsync();
 
-            foreach (var item in roomWithBestDiscountPerHotel)
+            var result = featuredDeals.Select(d =>
             {
-                item.RoomClass.Discounts = new List<Discount> { item.ActiveDiscount };
-            }
+                d.RoomClass.Discounts = new List<Discount> { d.ActiveDiscount };
+                d.Hotel.Thumbnail = d.Thumbnail;
+                d.RoomClass.Hotel = d.Hotel;
+                return d.RoomClass;
+            });
 
-            return roomWithBestDiscountPerHotel.Select(x => x.RoomClass);
+            return result;
         }
+
     }
 }

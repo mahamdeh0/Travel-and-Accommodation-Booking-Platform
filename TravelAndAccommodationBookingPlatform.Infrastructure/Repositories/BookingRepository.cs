@@ -80,15 +80,36 @@ namespace TravelAndAccommodationBookingPlatform.Infrastructure.Persistence.Repos
             if (!topBookingIds.Any())
                 return Enumerable.Empty<Booking>();
 
-            var recentBookings = await _context.Bookings
+            var recentBookingsWithImages = await _context.Bookings
                 .Where(b => topBookingIds.Contains(b.Id))
                 .Include(b => b.Hotel)
                     .ThenInclude(h => h.City)
-                .Include(b => b.Hotel.Gallery.Where(img => img.Type == ImageType.Thumbnail))
-                .AsNoTracking()
                 .ToListAsync();
 
-            return recentBookings.OrderBy(b => topBookingIds.IndexOf(b.Id));
+            var bookingsWithImages = recentBookingsWithImages
+                .GroupJoin(
+                    _context.Images.Where(img => img.Type == ImageType.Thumbnail),
+                    b => b.Hotel.Id,
+                    img => img.EntityId,
+                    (booking, images) => new
+                    {
+                        Booking = booking,
+                        Thumbnail = images.FirstOrDefault()
+                    }
+                )
+                .ToList();
+
+            foreach (var item in bookingsWithImages)
+            {
+                if (item.Thumbnail != null)
+                {
+                    item.Booking.Hotel.Thumbnail = item.Thumbnail;
+                }
+            }
+
+            return bookingsWithImages
+                .Select(x => x.Booking)
+                .OrderBy(b => topBookingIds.IndexOf(b.Id));
         }
 
         public async Task<bool> ExistsByPredicateAsync(Expression<Func<Booking, bool>> predicate)
