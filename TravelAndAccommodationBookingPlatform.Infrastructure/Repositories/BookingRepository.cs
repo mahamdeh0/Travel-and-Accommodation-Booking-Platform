@@ -64,24 +64,25 @@ namespace TravelAndAccommodationBookingPlatform.Infrastructure.Persistence.Repos
 
         public async Task<IEnumerable<Booking>> GetRecentBookingsByGuestIdAsync(Guid guestId, int count)
         {
-            var topBookingIdsQuery =
-                from b in _context.Bookings
-                where b.GuestId == guestId
-                group b by b.HotelId into g
-                let latestBooking = g.OrderByDescending(b => b.CheckInDate).FirstOrDefault()
-                where latestBooking != null
-                orderby latestBooking.CheckInDate descending
-                select latestBooking.Id;
-
-            var topBookingIds = await topBookingIdsQuery
-                .Take(count)
+            var groupedBookings = await _context.Bookings
+                .Where(b => b.GuestId == guestId)
+                .GroupBy(b => b.HotelId)
                 .ToListAsync();
 
-            if (!topBookingIds.Any())
+            var latestBookings = groupedBookings
+                .Select(g => g.OrderByDescending(b => b.CheckInDate).FirstOrDefault())
+                .Where(b => b != null)
+                .OrderByDescending(b => b.CheckInDate)
+                .Take(count)
+                .ToList();
+
+            if (!latestBookings.Any())
                 return Enumerable.Empty<Booking>();
 
+            var bookingIds = latestBookings.Select(b => b.Id).ToList();
+
             var recentBookingsWithImages = await _context.Bookings
-                .Where(b => topBookingIds.Contains(b.Id))
+                .Where(b => bookingIds.Contains(b.Id))
                 .Include(b => b.Hotel)
                     .ThenInclude(h => h.City)
                 .ToListAsync();
@@ -109,7 +110,7 @@ namespace TravelAndAccommodationBookingPlatform.Infrastructure.Persistence.Repos
 
             return bookingsWithImages
                 .Select(x => x.Booking)
-                .OrderBy(b => topBookingIds.IndexOf(b.Id));
+                .OrderBy(b => bookingIds.IndexOf(b.Id));
         }
 
         public async Task<bool> ExistsByPredicateAsync(Expression<Func<Booking, bool>> predicate)

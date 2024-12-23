@@ -1,6 +1,0 @@
-@TravelAndAccommodationBookingPlatform.WebAPI_HostAddress = http://localhost:5219
-
-GET {{TravelAndAccommodationBookingPlatform.WebAPI_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###
