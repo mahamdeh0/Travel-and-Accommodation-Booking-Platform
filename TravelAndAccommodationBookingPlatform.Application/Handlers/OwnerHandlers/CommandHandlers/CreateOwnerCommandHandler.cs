@@ -2,7 +2,9 @@
 using MediatR;
 using TravelAndAccommodationBookingPlatform.Application.Commands.OwnerCommands;
 using TravelAndAccommodationBookingPlatform.Application.DTOs.OwnerDtos;
+using TravelAndAccommodationBookingPlatform.Core.DomainMessages;
 using TravelAndAccommodationBookingPlatform.Core.Entities;
+using TravelAndAccommodationBookingPlatform.Core.Exceptions;
 using TravelAndAccommodationBookingPlatform.Core.Interfaces.Repositories;
 using TravelAndAccommodationBookingPlatform.Core.Interfaces.UnitOfWork;
 
@@ -23,6 +25,10 @@ namespace TravelAndAccommodationBookingPlatform.Application.Handlers.OwnerHandle
 
         public async Task<OwnerResponseDto> Handle(CreateOwnerCommand request, CancellationToken cancellationToken)
         {
+            var ownerExists = await _ownerRepository.OwnerExistsAsync(o => o.Email == request.Email);
+            if (ownerExists)
+                throw new ConflictException(OwnerMessages.OwnerAlreadyExists);
+
             var ownerEntity = _mapper.Map<Owner>(request);
             var createdOwner = await _ownerRepository.AddOwnerAsync(ownerEntity);
             await _unitOfWork.SaveChangesAsync();

@@ -1,26 +1,34 @@
-using Microsoft.EntityFrameworkCore;
-using TravelAndAccommodationBookingPlatform.Infrastructure.Data;
+using Microsoft.AspNetCore.RateLimiting;
+using Serilog;
+using TravelAndAccommodationBookingPlatform.Application.Extensions;
+using TravelAndAccommodationBookingPlatform.Infrastructure.Extensions;
+using TravelAndAccommodationBookingPlatform.WebAPI.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+Log.Logger = new LoggerConfiguration().ReadFrom.Configuration(builder.Configuration).Enrich.FromLogContext().CreateLogger();
+builder.Host.UseSerilog();
 
-builder.Services.AddDbContext<AppDbContext>(opt =>
-{
-    opt.UseSqlServer(builder.Configuration.GetConnectionString("SqlServer"));
-});
+builder.Services.AddWebApi().AddApplication().AddInfrastructure(builder.Configuration);
 
 var app = builder.Build();
 
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+app.UseExceptionHandler();
+
+app.UseSwagger();
+
+app.UseSwaggerUI();
+
+app.UseRateLimiter();
+
+app.UseSerilogRequestLogging(options => { options.MessageTemplate = "HTTP {RequestMethod} {RequestPath} responded {StatusCode} in {Elapsed:0.0000} ms";});
 
 app.UseHttpsRedirection();
 
-app.MapControllers();
+app.UseAuthentication();
+
+app.UseAuthorization();
+
+app.MapControllers().RequireRateLimiting("FixedWindowPolicy");
 
 app.Run();

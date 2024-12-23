@@ -40,7 +40,7 @@ namespace TravelAndAccommodationBookingPlatform.Application.Handlers.DiscountHan
             if (!await _roomClassRepository.ExistsAsync(rc => rc.Id == request.RoomClassId))
                 throw new NotFoundException(RoomClassMessages.RoomClassNotFound);
 
-            if (await _discountRepository.ExistsAsync(d => request.EndDate >= d.StartDate && request.StartDate <= d.EndDate))
+            if (await _discountRepository.ExistsAsync(d => d.RoomClassId == request.RoomClassId && request.EndDate >= d.StartDate && request.StartDate <= d.EndDate))
                 throw new ConflictException(DiscountMessages.ConflictingDiscountInterval);
 
             var discount = _mapper.Map<Discount>(request);

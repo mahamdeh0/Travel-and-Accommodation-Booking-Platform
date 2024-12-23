@@ -49,7 +49,7 @@ namespace TravelAndAccommodationBookingPlatform.Infrastructure.Persistence.Repos
 
         public async Task<PaginatedResult<Booking>> GetBookingsAsync(PaginatedQuery<Booking> query)
         {
-            var queryable = _context.Bookings.AsQueryable();
+            var queryable = _context.Bookings.Include(b => b.Hotel).AsQueryable();
 
             if (query.FilterExpression != null)
                 queryable = queryable.Where(query.FilterExpression);
@@ -64,31 +64,53 @@ namespace TravelAndAccommodationBookingPlatform.Infrastructure.Persistence.Repos
 
         public async Task<IEnumerable<Booking>> GetRecentBookingsByGuestIdAsync(Guid guestId, int count)
         {
-            var topBookingIdsQuery =
-                from b in _context.Bookings
-                where b.GuestId == guestId
-                group b by b.HotelId into g
-                let latestBooking = g.OrderByDescending(b => b.CheckInDate).FirstOrDefault()
-                where latestBooking != null
-                orderby latestBooking.CheckInDate descending
-                select latestBooking.Id;
-
-            var topBookingIds = await topBookingIdsQuery
-                .Take(count)
+            var groupedBookings = await _context.Bookings
+                .Where(b => b.GuestId == guestId)
+                .GroupBy(b => b.HotelId)
                 .ToListAsync();
 
-            if (!topBookingIds.Any())
+            var latestBookings = groupedBookings
+                .Select(g => g.OrderByDescending(b => b.CheckInDate).FirstOrDefault())
+                .Where(b => b != null)
+                .OrderByDescending(b => b.CheckInDate)
+                .Take(count)
+                .ToList();
+
+            if (!latestBookings.Any())
                 return Enumerable.Empty<Booking>();
 
-            var recentBookings = await _context.Bookings
-                .Where(b => topBookingIds.Contains(b.Id))
+            var bookingIds = latestBookings.Select(b => b.Id).ToList();
+
+            var recentBookingsWithImages = await _context.Bookings
+                .Where(b => bookingIds.Contains(b.Id))
                 .Include(b => b.Hotel)
                     .ThenInclude(h => h.City)
-                .Include(b => b.Hotel.Gallery.Where(img => img.Type == ImageType.Thumbnail))
-                .AsNoTracking()
                 .ToListAsync();
 
-            return recentBookings.OrderBy(b => topBookingIds.IndexOf(b.Id));
+            var bookingsWithImages = recentBookingsWithImages
+                .GroupJoin(
+                    _context.Images.Where(img => img.Type == ImageType.Thumbnail),
+                    b => b.Hotel.Id,
+                    img => img.EntityId,
+                    (booking, images) => new
+                    {
+                        Booking = booking,
+                        Thumbnail = images.FirstOrDefault()
+                    }
+                )
+                .ToList();
+
+            foreach (var item in bookingsWithImages)
+            {
+                if (item.Thumbnail != null)
+                {
+                    item.Booking.Hotel.Thumbnail = item.Thumbnail;
+                }
+            }
+
+            return bookingsWithImages
+                .Select(x => x.Booking)
+                .OrderBy(b => bookingIds.IndexOf(b.Id));
         }
 
         public async Task<bool> ExistsByPredicateAsync(Expression<Func<Booking, bool>> predicate)

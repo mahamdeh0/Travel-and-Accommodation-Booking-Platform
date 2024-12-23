@@ -34,7 +34,7 @@ namespace TravelAndAccommodationBookingPlatform.Infrastructure.Migrations
 
                     b.HasIndex("RoomsId");
 
-                    b.ToTable("BookingRoom", (string)null);
+                    b.ToTable("BookingRoom");
                 });
 
             modelBuilder.Entity("TravelAndAccommodationBookingPlatform.Core.Entities.Booking", b =>
@@ -75,7 +75,7 @@ namespace TravelAndAccommodationBookingPlatform.Infrastructure.Migrations
 
                     b.HasIndex("HotelId");
 
-                    b.ToTable("Bookings", (string)null);
+                    b.ToTable("Bookings");
                 });
 
             modelBuilder.Entity("TravelAndAccommodationBookingPlatform.Core.Entities.City", b =>
@@ -108,7 +108,7 @@ namespace TravelAndAccommodationBookingPlatform.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Cities", (string)null);
+                    b.ToTable("Cities");
                 });
 
             modelBuilder.Entity("TravelAndAccommodationBookingPlatform.Core.Entities.Discount", b =>
@@ -140,7 +140,7 @@ namespace TravelAndAccommodationBookingPlatform.Infrastructure.Migrations
 
                     b.HasIndex("RoomClassId");
 
-                    b.ToTable("Discounts", (string)null);
+                    b.ToTable("Discounts");
                 });
 
             modelBuilder.Entity("TravelAndAccommodationBookingPlatform.Core.Entities.Hotel", b =>
@@ -199,7 +199,7 @@ namespace TravelAndAccommodationBookingPlatform.Infrastructure.Migrations
 
                     b.HasIndex("OwnerId");
 
-                    b.ToTable("Hotels", (string)null);
+                    b.ToTable("Hotels");
                 });
 
             modelBuilder.Entity("TravelAndAccommodationBookingPlatform.Core.Entities.Image", b =>
@@ -223,7 +223,7 @@ namespace TravelAndAccommodationBookingPlatform.Infrastructure.Migrations
 
                     b.HasIndex("EntityId");
 
-                    b.ToTable("Images", (string)null);
+                    b.ToTable("Images");
                 });
 
             modelBuilder.Entity("TravelAndAccommodationBookingPlatform.Core.Entities.InvoiceDetail", b =>
@@ -276,7 +276,7 @@ namespace TravelAndAccommodationBookingPlatform.Infrastructure.Migrations
 
                     b.HasIndex("RoomId");
 
-                    b.ToTable("InvoiceDetail", (string)null);
+                    b.ToTable("InvoiceDetail");
                 });
 
             modelBuilder.Entity("TravelAndAccommodationBookingPlatform.Core.Entities.Owner", b =>
@@ -303,7 +303,7 @@ namespace TravelAndAccommodationBookingPlatform.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Owners", (string)null);
+                    b.ToTable("Owners");
                 });
 
             modelBuilder.Entity("TravelAndAccommodationBookingPlatform.Core.Entities.Review", b =>
@@ -337,7 +337,7 @@ namespace TravelAndAccommodationBookingPlatform.Infrastructure.Migrations
 
                     b.HasIndex("HotelId");
 
-                    b.ToTable("Reviews", (string)null);
+                    b.ToTable("Reviews");
                 });
 
             modelBuilder.Entity("TravelAndAccommodationBookingPlatform.Core.Entities.Role", b =>
@@ -346,17 +346,25 @@ namespace TravelAndAccommodationBookingPlatform.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Roles", (string)null);
+                    b.ToTable("Roles");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("62d4e5fd-f212-4f17-19c8-08dd21b8d161"),
+                            Name = "Guest"
+                        },
+                        new
+                        {
+                            Id = new Guid("6979da61-a3ba-42de-ab1a-08dd21b746d6"),
+                            Name = "Admin"
+                        });
                 });
 
             modelBuilder.Entity("TravelAndAccommodationBookingPlatform.Core.Entities.Room", b =>
@@ -382,7 +390,7 @@ namespace TravelAndAccommodationBookingPlatform.Infrastructure.Migrations
 
                     b.HasIndex("RoomClassId");
 
-                    b.ToTable("Rooms", (string)null);
+                    b.ToTable("Rooms");
                 });
 
             modelBuilder.Entity("TravelAndAccommodationBookingPlatform.Core.Entities.RoomClass", b =>
@@ -429,7 +437,7 @@ namespace TravelAndAccommodationBookingPlatform.Infrastructure.Migrations
 
                     b.HasIndex("TypeOfRoom");
 
-                    b.ToTable("RoomClasses", (string)null);
+                    b.ToTable("RoomClasses");
                 });
 
             modelBuilder.Entity("TravelAndAccommodationBookingPlatform.Core.Entities.User", b =>
@@ -466,7 +474,19 @@ namespace TravelAndAccommodationBookingPlatform.Infrastructure.Migrations
                     b.HasIndex("Email")
                         .IsUnique();
 
-                    b.ToTable("Users", (string)null);
+                    b.ToTable("Users");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("7e754e75-d677-4483-57bd-08dd21b65a13"),
+                            DateOfBirth = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "admin@Test.com",
+                            FirstName = "Admin",
+                            LastName = "Admin",
+                            Password = "AEO5MEnY6njK7M2UYW6K49qb+MqiU5uGFirzMZ/8d39QAiqJ9S9jdn/Qbe4mnZP4tg==",
+                            PhoneNumber = "0569345887"
+                        });
                 });
 
             modelBuilder.Entity("UserRole", b =>
@@ -481,7 +501,14 @@ namespace TravelAndAccommodationBookingPlatform.Infrastructure.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("UserRole", (string)null);
+                    b.ToTable("UserRole");
+
+                    b.HasData(
+                        new
+                        {
+                            RoleId = new Guid("6979da61-a3ba-42de-ab1a-08dd21b746d6"),
+                            UserId = new Guid("7e754e75-d677-4483-57bd-08dd21b65a13")
+                        });
                 });
 
             modelBuilder.Entity("BookingRoom", b =>

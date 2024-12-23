@@ -7,7 +7,7 @@ namespace TravelAndAccommodationBookingPlatform.Application.Commands.CityCommand
         public Guid CityId { get; init; }
         public string Name { get; init; }
         public string Country { get; init; }
-        public string Region { get; set; }
+        public string Region { get; init; }
         public string PostOffice { get; init; }
     }
 }

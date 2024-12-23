@@ -10,9 +10,9 @@ namespace TravelAndAccommodationBookingPlatform.Application.Profiles
     {
         public ReviewProfile()
         {
-            CreateMap<Review, ReviewResponseDto>();
+            CreateMap<Review, ReviewResponseDto>().ForMember(dest => dest.GuestName, opt => opt.MapFrom(src => src.Guest.FirstName + " " + src.Guest.LastName));
             CreateMap<UpdateReviewCommand, Review>();
-            CreateMap<Review, ReviewResponseDto>();
+            CreateMap<CreateReviewCommand, Review>();
             CreateMap<PaginatedResult<Review>, PaginatedResult<ReviewResponseDto>>().ForMember(dst => dst.Items, options => options.MapFrom(src => src.Items));
         }
     }

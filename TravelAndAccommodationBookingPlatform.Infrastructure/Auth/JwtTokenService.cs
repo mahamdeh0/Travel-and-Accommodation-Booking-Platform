@@ -1,4 +1,4 @@
-﻿using Microsoft.Extensions.Options;
+﻿using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -11,40 +11,45 @@ namespace TravelAndAccommodationBookingPlatform.Infrastructure.Auth
 {
     public class JwtTokenService : IJwtTokenGenerator
     {
-        private readonly JwtSettings _jwtSettings;
+        private readonly IConfiguration _configuration;
 
-        public JwtTokenService(IOptions<JwtSettings> jwtSettings)
+        public JwtTokenService(IConfiguration configuration)
         {
-            _jwtSettings = jwtSettings.Value;
+            _configuration = configuration;
         }
 
         public JwtAuthToken CreateTokenForUser(User user)
         {
+            var jwtSection = _configuration.GetSection("Jwt");
+            var key = jwtSection["Key"];
+            var issuer = jwtSection["Issuer"];
+            var audience = jwtSection["Audience"];
+            var lifetimeMinutes = double.Parse(jwtSection["LifetimeMinutes"]);
+
             var claims = new List<Claim>
-        {
-            new("sub", user.Id.ToString()),
-            new("firstName", user.FirstName),
-            new("lastName", user.LastName),
-            new("email", user.Email)
-        };
+            {
+                new("sub", user.Id.ToString()),
+                new("firstName", user.FirstName),
+                new("lastName", user.LastName),
+                new("email", user.Email)
+            };
 
             claims.AddRange(user.Roles.Select(r => new Claim(ClaimTypes.Role, r.Name)));
 
             var signingCredentials = new SigningCredentials(
-                new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtSettings.Key)),
+                new SymmetricSecurityKey(Encoding.UTF8.GetBytes(key)),
                 SecurityAlgorithms.HmacSha256);
 
             var jwtSecurityToken = new JwtSecurityToken(
-                _jwtSettings.Issuer,
-                _jwtSettings.Audience,
+                issuer,
+                audience,
                 claims,
-                DateTime.Now,
-                DateTime.Now.AddMinutes(_jwtSettings.LifetimeMinutes),
+                DateTime.UtcNow,
+                DateTime.UtcNow.AddMinutes(lifetimeMinutes),
                 signingCredentials
             );
 
-            var token = new JwtSecurityTokenHandler()
-                .WriteToken(jwtSecurityToken);
+            var token = new JwtSecurityTokenHandler().WriteToken(jwtSecurityToken);
 
             return new JwtAuthToken(token);
         }

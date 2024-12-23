@@ -2,13 +2,13 @@
 {
     public class CityManagementResponseDto
     {
-        public Guid Id { get; set; }
-        public string Name { get; set; }
-        public int TotalHotels { get; set; }
-        public string Country { get; set; }
-        public string PostOffice { get; set; }
-        public string Region { get; set; }
-        public DateTime CreatedAt { get; set; }
-        public DateTime? UpdatedAt { get; set; }
+        public Guid Id { get; init; }
+        public string Name { get; init; }
+        public int TotalHotels { get; init; }
+        public string Country { get; init; }
+        public string PostOffice { get; init; }
+        public string Region { get; init; }
+        public DateTime CreatedAt { get; init; }
+        public DateTime? UpdatedAt { get; init; }
     }
 }
