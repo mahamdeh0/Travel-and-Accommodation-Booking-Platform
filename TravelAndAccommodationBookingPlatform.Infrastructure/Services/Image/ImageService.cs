@@ -26,7 +26,7 @@ namespace TravelAndAccommodationBookingPlatform.Infrastructure.Services.Image
             if (!AllowedImageFormats.Contains(imageFormat))
                 throw new ArgumentOutOfRangeException(nameof(image), $"The image format '{imageFormat}' is not supported.");
 
-            var credential = GoogleCredential.FromJson(_firebaseConfig.GoogleCredential);
+            var credential = GoogleCredential.FromFile(_firebaseConfig.GoogleCredential);
 
             var storage = await StorageClient.CreateAsync(credential);
 
@@ -35,7 +35,7 @@ namespace TravelAndAccommodationBookingPlatform.Infrastructure.Services.Image
                 Path = string.Empty
             };
 
-            var objectName = $"{imageEntity.EntityId}{imageFormat}";
+            var objectName = $"{Guid.NewGuid()}{imageFormat}";
 
             using (var stream = image.OpenReadStream())
             {
@@ -57,7 +57,7 @@ namespace TravelAndAccommodationBookingPlatform.Infrastructure.Services.Image
             if (image == null || string.IsNullOrEmpty(image.Path))
                 throw new ArgumentNullException(nameof(image), "The provided image is null or invalid.");
 
-            var credential = GoogleCredential.FromJson(_firebaseConfig.GoogleCredential);
+            var credential = GoogleCredential.FromFile(_firebaseConfig.GoogleCredential);
 
             var storage = await StorageClient.CreateAsync(credential);
 
