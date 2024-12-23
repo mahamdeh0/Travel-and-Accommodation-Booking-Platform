@@ -12,7 +12,7 @@ namespace TravelAndAccommodationBookingPlatform.Core.Interfaces.Repositories
         Task<Hotel> AddHotelAsync(Hotel hotel);
         Task RemoveHotelAsync(Guid id);
         Task UpdateHotelAsync(Hotel hotel);
-        Task UpdateHotelRatingAsync(Guid id, double newRating);
+        Task UpdateReviewById(Guid id, double Rating);
         Task<Hotel?> GetHotelByIdAsync(Guid id);
         Task<PaginatedResult<HotelManagementDto>> GetHotelsForManagementPageAsync(PaginatedQuery<Hotel> query);
         Task<bool> ExistsByPredicateAsync(Expression<Func<Hotel, bool>> predicate);

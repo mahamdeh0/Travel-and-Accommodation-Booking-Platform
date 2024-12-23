@@ -9,7 +9,6 @@ namespace TravelAndAccommodationBookingPlatform.Core.Models
         public string Name { get; set; }
         public int StarRating { get; set; }
         public int NumberOfRooms { get; set; }
-        public int TotalBookingsCount { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime? UpdatedAt { get; set; }
     }

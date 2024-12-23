@@ -1,6 +1,6 @@
 ﻿namespace TravelAndAccommodationBookingPlatform.Core.Models
 {
-    public class CityAdminView
+    public class CityManagementDto
     {
         public Guid Id { get; set; }
         public string Name { get; set; }

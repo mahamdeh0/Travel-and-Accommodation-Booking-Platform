@@ -4,6 +4,27 @@
     <ProjectReference Include="..\TravelAndAccommodationBookingPlatform.Core\TravelAndAccommodationBookingPlatform.Core.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Commands\HotelCommands\" />
+    <Folder Include="Commands\ReviewCommands\" />
+    <Folder Include="DTOs\HotelDtos\" />
+    <Folder Include="DTOs\ReviewsDtos\" />
+    <Folder Include="Handlers\HotelHandlers\CommandHandlers\" />
+    <Folder Include="Handlers\HotelHandlers\QueryHandlers\" />
+    <Folder Include="Handlers\ReviewHandlers\CommandHandlers\" />
+    <Folder Include="Handlers\ReviewHandlers\QueryHandlers\" />
+    <Folder Include="Handlers\RoomClassHandlers\QueryHandlers\" />
+    <Folder Include="Queries\HotelQueries\" />
+    <Folder Include="Queries\UserQueries\" />
+    <Folder Include="Queries\RoomClassQueries\" />
+    <Folder Include="Queries\ReviewQueries\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="13.0.1" />
+    <PackageReference Include="MediatR" Version="12.4.1" />
+  </ItemGroup>
+
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
