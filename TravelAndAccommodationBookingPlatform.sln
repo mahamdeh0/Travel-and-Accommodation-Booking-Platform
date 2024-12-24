@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TravelAndAccommodationBooki
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TravelAndAccommodationBookingPlatform.WebAPI", "TravelAndAccommodationBookingPlatform.WebAPI\TravelAndAccommodationBookingPlatform.WebAPI.csproj", "{C4E4701D-0A42-4204-A21B-256068E517AF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TravelAndAccommodationBookingPlatform.Tests", "TravelAndAccommodationBookingPlatform.Tests\TravelAndAccommodationBookingPlatform.Tests.csproj", "{C193C4BF-B28C-4C08-9548-538882782B32}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{C4E4701D-0A42-4204-A21B-256068E517AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C4E4701D-0A42-4204-A21B-256068E517AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C4E4701D-0A42-4204-A21B-256068E517AF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C193C4BF-B28C-4C08-9548-538882782B32}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C193C4BF-B28C-4C08-9548-538882782B32}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C193C4BF-B28C-4C08-9548-538882782B32}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C193C4BF-B28C-4C08-9548-538882782B32}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
