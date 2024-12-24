@@ -274,6 +274,7 @@ Provides user-specific data and functionalities.
 ---
 
 ## 🗂 Database Schema Design
+![Database Schema](https://firebasestorage.googleapis.com/v0/b/travelandaccommodationbooking.firebasestorage.app/o/image.png?alt=media&token=981630a5-f5ea-4219-b1f4-aca9034144e4)
 
 Based on the provided C# entity definitions, the following database schema has been designed to accurately represent the data structures and relationships within the **Travel and Accommodation Booking Platform**.
 
@@ -435,6 +436,7 @@ Other tables include `Cities`, `Discounts`, `Owners`, `RoomClasses`, etc., each 
 ---
 
 ## 🏢 System Architecture
+![Architecture Overview](https://firebasestorage.googleapis.com/v0/b/travelandaccommodationbooking.firebasestorage.app/o/image%20(1).png?alt=media&token=9fd83712-959a-4f78-bdba-39746f2afb02)
 
 The **Travel and Accommodation Booking Platform** is architected following the **Clean Architecture** paradigm, ensuring a clear separation of concerns, scalability, and maintainability.
 

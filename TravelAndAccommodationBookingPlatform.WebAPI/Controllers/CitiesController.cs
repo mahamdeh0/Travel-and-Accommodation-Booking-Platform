@@ -31,7 +31,7 @@ namespace TravelAndAccommodationBookingPlatform.WebAPI.Controllers
         /// <summary>
         /// Retrieves a list of trending cities.
         /// </summary>
-        /// <param name="GettrendingCitiesRequestDto">Parameters to filter and sort trending cities.</param>
+        /// <param name="getTrendingCitiesRequestDto">Parameters to filter and sort trending cities.</param>
         /// <returns>Returns a list of trending cities.</returns>
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -65,7 +65,7 @@ namespace TravelAndAccommodationBookingPlatform.WebAPI.Controllers
         /// <summary>
         /// Creates a new city.
         /// </summary>
-        /// <param name="cityCreationRequest">The request data to create a city.</param>
+        /// <param name="cityCreationRequestDto">The request data to create a city.</param>
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -102,7 +102,7 @@ namespace TravelAndAccommodationBookingPlatform.WebAPI.Controllers
         /// Updates an existing city.
         /// </summary>
         /// <param name="id">The ID of the city to update.</param>
-        /// <param name="cityUpdateRequest">The updated data for the city.</param>
+        /// <param name="cityUpdateRequestDto">The updated data for the city.</param>
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
