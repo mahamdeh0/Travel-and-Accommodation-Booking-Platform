@@ -1,7 +1,7 @@
 # Travel and Accommodation Booking Platform
 
 ![License](https://img.shields.io/badge/License-MIT-blue.svg)
-![Build](https://img.shields.io/badge/build-passing-brightgreen.svg)
+[![.NET](https://github.com/mahamdeh0/Travel-and-Accommodation-Booking-Platform/actions/workflows/dotnet.yml/badge.svg)](https://github.com/mahamdeh0/Travel-and-Accommodation-Booking-Platform/actions/workflows/dotnet.yml)
 ![Version](https://img.shields.io/badge/version-1.0.0-orange.svg)
 
 Welcome to the **Travel and Accommodation Booking Platform**, a state-of-the-art solution designed to streamline and enhance the management of travel bookings, accommodations, and related services. Our platform offers a robust API capable of handling a diverse range of operations, including user authentication, booking management, city and hotel administration, discounts, reviews, and more.
