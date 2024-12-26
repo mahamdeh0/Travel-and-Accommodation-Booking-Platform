@@ -7,6 +7,7 @@ namespace TravelAndAccommodationBookingPlatform.WebAPI.DTOs.Hotels
         public string? OrderDirection { get; init; }
         public string? SortColumn { get; init; }
         public string? Search { get; init; }
+        public string? CityName { get; init; }
         public int MaxChildrenCapacity { get; set; }
         public int MaxAdultsCapacity { get; set; }
         public int NumberOfRooms { get; init; }

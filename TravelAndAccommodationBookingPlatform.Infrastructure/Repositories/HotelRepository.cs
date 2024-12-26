@@ -131,6 +131,7 @@ namespace TravelAndAccommodationBookingPlatform.Infrastructure.Repositories
                     StarRating = hotel.StarRating,
                     ReviewsRating = hotel.ReviewsRating,
                     NightlyRate = hotel.RoomClasses.Min(rc => rc.NightlyRate),
+                    CityName = hotel.City.Name,
                     Description = hotel.BriefDescription
                 })
                 .AsNoTracking()

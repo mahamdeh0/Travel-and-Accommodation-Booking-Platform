@@ -49,6 +49,11 @@ namespace TravelAndAccommodationBookingPlatform.Application.Handlers.HotelHandle
                     h.City.Country.Contains(request.Search);
             }
 
+            if (!string.IsNullOrWhiteSpace(request.CityName))
+            {
+                 filter = CombineExpressions(filter, h => h.City.Name.Contains(request.CityName));
+            }
+
             if (request.MinStarRating.HasValue)
             {
                 filter = CombineExpressions(filter, h => h.StarRating >= request.MinStarRating);
